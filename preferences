@@ -1,0 +1,6 @@
+{
+	"bot_user":"termifire",
+	"bot_password":"oauth:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+	"channel":"lirik",
+	"log_chat":true
+}
