@@ -10,7 +10,7 @@ __version__ = "1.0"
 __author__ = "Paco Hobi"
 
 
-import irc, sys, os, CommandProcessor, Caps
+import irc, sys, os, CommandProcessor, Caps, Poll
 from time import strftime
 from json import load as json_load
 from thread import start_new_thread
@@ -104,7 +104,10 @@ def user_message(user, msg):
 	if config['log_chat']:
 		log("[%s] %s: %s\n" %(strftime("%H:%M:%S"), user, msg), logfile)
 	# commands
-	if msg[0] == '!' and config['commands']:
+	split = msg.split()
+	if split[0].lower() in ['!poll','!vote'] and config['polls']['enabled']:
+		poll.process(users[user], msg)
+	elif msg[0] == '!' and config['commands']:
 		commands.process(users[user], msg)
 	# check caps
 	if config['caps']['enabled']:
@@ -139,11 +142,12 @@ conn = irc.IRC() # irc object
 config = load_config(base_dir + '/config') # config dictionary
 commands = CommandProcessor.CommandProcessor(conn, config, base_dir + '/commands')
 caps = Caps.Caps(conn, config)
+poll = Poll.Poll(conn, config)
 users = {} # users dictionary
 
 if len(sys.argv) > 1: # if channel specified as an argument we ignore the channel in config
 	config['channel'] = sys.argv[1]
-conn.connect('199.9.253.165') # connect to the server
+conn.connect('irc.twitch.tv') # connect to the server
 conn.login(config['bot_user'], config['bot_password']) # login the bot
 conn.join('#'+config['channel']) # join the channel
 conn.send("TWITCHCLIENT 3") # to receive user info (usermode, color, emotesets) and twitchnotify (user subscriptions)
