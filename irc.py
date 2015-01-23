@@ -6,6 +6,7 @@ class IRC():
 	# open a socket to handle the connection
 	def __init__(self):
 		self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.channel = ''
 
 	# connect to a server
 	def connect(self, server, port=6667):
@@ -15,8 +16,13 @@ class IRC():
 	def send(self, command):
 		self.conn.send(command + '\n')
 
+	# send message to channel
+	def send_channel(self, msg):
+		self.send("PRIVMSG %s :%s" %(self.channel, msg))
+
 	# join a channel
 	def join(self, channel):
+		self.channel = channel
 		self.send("JOIN %s" % channel)
 
 	# send login data
