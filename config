@@ -1,7 +1,17 @@
 {
 	"bot_user":"username",
-	"bot_password":"oauth:xxxxxxxxxxxxxxxxxx",
+	"bot_password":"oauth:xxxxxxxxxxxxxxx",
 	"channel":"termifire",
 	"commands":true,
-	"log_chat":true
+	"log_chat":true,
+	"caps":{
+		"enabled":true,
+		"min_length":5,
+		"lower_limit":20,
+		"upper_limit":60,
+		"warn":true,
+		"warning":"WARNING: $user don't abuse caps",
+		"timeout":true,
+		"timeout_time":5
+	}
 }

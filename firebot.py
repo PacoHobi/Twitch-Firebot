@@ -10,7 +10,7 @@ __version__ = "1.0"
 __author__ = "Paco Hobi"
 
 
-import irc, sys, os, CommandProcessor
+import irc, sys, os, CommandProcessor, Caps
 from time import strftime
 from json import load as json_load
 from thread import start_new_thread
@@ -30,7 +30,7 @@ def process_message(message):
 	split = message.split(' ', 2)
 	user = split[0][1:].split('!', 1)[0]
 	command = split[1]
-	msg = split[2].split(' :', 1)
+	msg = split[2].strip(' \t\n\r').split(' :', 1)
 	if len(msg) > 1:
 		msg = msg[1]
 	else:
@@ -53,7 +53,9 @@ def process_message(message):
 		elif msg[1] == '-o':
 			remove_mod(msg[2])
 	else:
-		pass
+		if split[1] == 'NOTICE' and split[2][:19] == '* :Error logging in':
+			print "\033[31mError loggin in\033[m"
+			exit()
 		# print "\033[31m%s\033[m" %(message)
 
 # system message event
@@ -101,8 +103,12 @@ def user_message(user, msg):
 		print "[%s][%s] \033[1m%s\033[m: %s" %(flags, users[user]['color'], user, msg)
 	if config['log_chat']:
 		log("[%s] %s: %s\n" %(strftime("%H:%M:%S"), user, msg), logfile)
-	if msg[0] == '!' and config['commands']: # commands
-		cmd_proc.process(users[user], msg)
+	# commands
+	if msg[0] == '!' and config['commands']:
+		commands.process(users[user], msg)
+	# check caps
+	if config['caps']['enabled']:
+		caps.check(users[user], msg)
 
 # user subscription event
 def user_subscribed(user, months):
@@ -123,16 +129,21 @@ def log(m, f):
 	f.write(m)
 	f.flush()
 
+# exit firebot
+def exit():
+	os._exit(1)
+
 
 base_dir = os.path.dirname(os.path.realpath(__file__)) # directory of the script
 conn = irc.IRC() # irc object
 config = load_config(base_dir + '/config') # config dictionary
-cmd_proc = CommandProcessor.CommandProcessor(conn, config, base_dir + '/commands')
+commands = CommandProcessor.CommandProcessor(conn, config, base_dir + '/commands')
+caps = Caps.Caps(conn, config)
 users = {} # users dictionary
 
 if len(sys.argv) > 1: # if channel specified as an argument we ignore the channel in config
 	config['channel'] = sys.argv[1]
-conn.connect('irc.twitch.tv') # connect to the server
+conn.connect('199.9.253.165') # connect to the server
 conn.login(config['bot_user'], config['bot_password']) # login the bot
 conn.join('#'+config['channel']) # join the channel
 conn.send("TWITCHCLIENT 3") # to receive user info (usermode, color, emotesets) and twitchnotify (user subscriptions)
@@ -151,3 +162,4 @@ except:
 # manage user input
 while True:
 	s=raw_input()
+	conn.send(s)
