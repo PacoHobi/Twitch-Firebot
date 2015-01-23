@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
 import utils
-from json import load as json_load
-from time import strftime
 
 class Caps():
-	# load the commands from file f
+	# init caps
 	def __init__(self, conn, config):
 		self.conn = conn
 		self.config = config
