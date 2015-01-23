@@ -41,7 +41,7 @@ Option         | Type      | Description
 "!firebot" : {
 	"mod": false,
 	"subscriber": false,
-	"response": "To find more about Firebot visit http://github.com/PacoHobi/Firebot"
+	"response": "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
 }
 ```
 
