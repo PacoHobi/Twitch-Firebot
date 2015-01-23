@@ -2,19 +2,13 @@
 	"!help" : {
 		"mod": false,
 		"subscriber": false,
-		"response": "Available commands are: !firebot, !specs, !time"
+		"response": "Available commands are: !firebot, !time"
 	},
 
 	"!firebot" : {
 		"mod": false,
 		"subscriber": false,
-		"response": "To find more about Firebot visit http://github.com/PacoHobi/Firebot"
-	},
-
-	"!specs" : {
-		"mod": false,
-		"subscriber": false,
-		"response": "CPU: i5 2500k 3.2GHz, Geforce GTX 560Ti, 8GB RAM"
+		"response": "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
 	},
 
 	"!time" : {
