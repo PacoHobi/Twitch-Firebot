@@ -21,4 +21,4 @@ Option         | Description
 `bot_user`     | Username of the account with which Firebot will connect to the channel
 `bot_password` | The password should be an OAuth token. You can get your OAuth token [here](http://www.twitchapps.com/tmi/)
 `channel`      | The channel Firebot will connect to
-`log_chat`     | If set to `true` Firebot will log all chat messages to a file called `channel-yyy-mm-dd-hh-mm-ss.log`<br>If set to `false` Firebot will not log any messages
+`log_chat`     | If set to `true` Firebot will log all chat messages to a file called `channel-yyyy-mm-dd-hh-mm-ss.log` in the `logs` folder<br>If set to `false` Firebot will not log any messages
