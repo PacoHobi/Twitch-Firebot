@@ -39,15 +39,38 @@ Option         | Type      | Description
 `timeout`      | *boolean* | If set to `true` Firebot will timeout users who use excessive caps.<br>If set to `false` Firebot will **not** timeout users who use excessive caps.
 `timeout_time` | *integer* | Duration of the timeout in seconds.
 
+###Polls options
+Option         | Type      | Description
+-------------- | --------- | -----------
+`enabled`      | *boolean* | If set to `true` Firebot will respond to poll commands.<br>If set to `false` Firebot will **not** respond to poll commands.
+`start`        | *string*  | Message Firebot will send when a poll is started.
+`start_error`  | *string*  | Message Firebot will send when trying to start a poll while a poll is already running.
+`end`          | *string*  | Message Firebot will send when a poll is ended.
+`restart`      | *string*  | Message Firebot will send when a poll is restarted.
+`stats`        | *string*  | Message Firebot will send when the poll stats are requested.
+
+
 ##Commands
-All commands are defined in the `commands` file in JSON format. All commands must have all their options specified to prevents errors.
+All commands must have all their options specified to prevents errors.
 
 ###Response commands
+Response commands are defined in the `commands` file in JSON format.
+
+####Options
 Option         | Type      | Description
 -------------- | --------- | -----------
 `mod`          | *boolean* | If set to `true` Firebot will **not** respond to users who are not moderatos.<br>If set to `false` Firebot will respond to users who are not moderators.
 `subscriber`   | *boolean* | If set to `true` Firebot will **not** respond to users who are not subscribers.<br>If set to `false` Firebot will respond to users who are not subscribers.
 `response`     | *string*  | Message Firebot will respond to this command.<br>[Variables](#variables) can be used.
+
+####Variables
+This variables can be used in any command response and will be replaced by the apropiate value.
+
+Variable | Value
+-------- | -------
+`$user`  | Username of the user who sent the command.
+`$time`  | Current time of the machine where Firebot is running, with format `hh:mm:ss AM/PM`.
+
 ####Example
 ```json
 "!firebot" : {
@@ -56,11 +79,11 @@ Option         | Type      | Description
 	"response": "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
 }
 ```
-
-###Variables
-This variables can be used in any command response and will be replaced by the apropiate value.
-
-Variable | Value
--------- | -------
-`$user`  | Username of the user who sent the command.
-`$time`  | Current time of the machine where Firebot is running, with format `hh:mm:ss AM/PM`.
+###Poll commands
+Command                                   | Description
+----------------------------------------- | -----------
+`!poll start option1 | option2 | option3` | Starts a poll with options option1, option2, option3. More (or less) options can de declared.
+`!poll end`                               | Ends the current poll.
+`!poll restart`                           | Restarts the votes of the current poll.
+`!poll stats`                             | Firebot will respond with the current poll results.
+`!vote [OptionNumber]`                    | Votes for the `[OptionValue]` option of the current poll.
