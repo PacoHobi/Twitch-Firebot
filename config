@@ -1,6 +1,7 @@
 {
 	"bot_user":"username",
-	"bot_password":"oauth:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-	"channel":"lirik",
+	"bot_password":"oauth:xxxxxxxxxxxxxxxxxx",
+	"channel":"termifire",
+	"commands":true,
 	"log_chat":true
 }

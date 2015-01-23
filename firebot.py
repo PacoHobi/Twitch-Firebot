@@ -10,7 +10,7 @@ __version__ = "1.0"
 __author__ = "Paco Hobi"
 
 
-import irc, sys, os
+import irc, sys, os, CommandProcessor
 from time import strftime
 from json import load as json_load
 from thread import start_new_thread
@@ -23,7 +23,7 @@ def load_config(f):
 # initiliaze user info in the users dictionary
 def init_user(user):
 	if user not in users.keys():
-		users[user] = {'follower':False,'subscriber':False,'turbo':False,'mod':False,'color':'default','emoteset':'[]'}
+		users[user] = {'user':user,'follower':False,'subscriber':False,'turbo':False,'mod':False,'color':'default','emoteset':'[]'}
 
 # process message from the server
 def process_message(message):
@@ -101,6 +101,8 @@ def user_message(user, msg):
 		print "[%s][%s] \033[1m%s\033[m: %s" %(flags, users[user]['color'], user, msg)
 	if config['log_chat']:
 		log("[%s] %s: %s\n" %(strftime("%H:%M:%S"), user, msg), logfile)
+	if msg[0] == '!' and config['commands']: # commands
+		cmd_proc.process(users[user], msg)
 
 # user subscription event
 def user_subscribed(user, months):
@@ -125,20 +127,20 @@ def log(m, f):
 base_dir = os.path.dirname(os.path.realpath(__file__)) # directory of the script
 conn = irc.IRC() # irc object
 config = load_config(base_dir + '/config') # config dictionary
+cmd_proc = CommandProcessor.CommandProcessor(conn, config, base_dir + '/commands')
 users = {} # users dictionary
 
-channel = config['channel'] # channel from config
 if len(sys.argv) > 1: # if channel specified as an argument we ignore the channel in config
-	channel = sys.argv[1]
+	config['channel'] = sys.argv[1]
 conn.connect('irc.twitch.tv') # connect to the server
 conn.login(config['bot_user'], config['bot_password']) # login the bot
-conn.join('#'+channel) # join the channel
+conn.join('#'+config['channel']) # join the channel
 conn.send("TWITCHCLIENT 3") # to receive user info (usermode, color, emotesets) and twitchnotify (user subscriptions)
 #open file for log chat
 if (config['log_chat']):
 	if not os.path.exists(base_dir + '/logs'):
 		os.makedirs(base_dir + '/logs')
-	logfile = open(base_dir + '/logs/'+channel+'-'+strftime("%Y-%m-%d-%H-%M-%S")+'.log', 'w+')
+	logfile = open(base_dir + '/logs/'+config['channel']+'-'+strftime("%Y-%m-%d-%H-%M-%S")+'.log', 'w+')
 try:
 	start_new_thread(conn.receive, (process_message,)) # listen for messages from the server
 except:
@@ -149,5 +151,3 @@ except:
 # manage user input
 while True:
 	s=raw_input()
-	if s == '1':
-		conn.send("PRIVMSG #%s :.clear" % channel)
