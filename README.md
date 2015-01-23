@@ -20,11 +20,11 @@ Firebot will use the options values in the `config` file if no other values are 
 
 Option         | Type      | Description
 -------------- | --------- | -----------
-`bot_user`     | *string*  | Username of the account with which Firebot will connect to the channel
-`bot_password` | *string*  | The password should be an OAuth token. You can get your OAuth token [here](http://www.twitchapps.com/tmi/)
-`channel`      | *string*  | The channel Firebot will connect to
-`commands`     | *boolean* | If set to `true` Firebot will process user commands as specified in the file `commands`<br>If set to `false` Firebot will not process user commands 
-`log_chat`     | *boolean* |If set to `true` Firebot will log all chat messages to a file called `channel-yyyy-mm-dd-hh-mm-ss.log` in the `logs` folder<br>If set to `false` Firebot will not log any messages
+`bot_user`     | *string*  | Username of the account with which Firebot will connect to the channel.
+`bot_password` | *string*  | The password should be an OAuth token. You can get your OAuth token [here](http://www.twitchapps.com/tmi/).
+`channel`      | *string*  | The channel Firebot will connect to.
+`commands`     | *boolean* | If set to `true` Firebot will process user commands as specified in the file `commands`.<br>If set to `false` Firebot will not process user commands.
+`log_chat`     | *boolean* |If set to `true` Firebot will log all chat messages to a file called `channel-yyyy-mm-dd-hh-mm-ss.log` in the `logs` folder.<br>If set to `false` Firebot will not log any messages.
 
 
 ##Commands
@@ -33,9 +33,9 @@ All commands are defined in the `commands` file in JSON format. All commands mus
 ###Response commands
 Option         | Type      | Description
 -------------- | --------- | -----------
-`mod`          | *boolean* | If set to `true` Firebot will **not** respond to users who are not moderatos<br>If set to `false` Firebot will respond to users who are not moderators
-`subscriber`   | *boolean* | If set to `true` Firebot will **not** respond to users who are not subscribers<br>If set to `false` Firebot will respond to users who are not subscribers
-`response`     | *string*  | Message Firebot will respond to this command<br>[Variables](#variables) can be used
+`mod`          | *boolean* | If set to `true` Firebot will **not** respond to users who are not moderatos.<br>If set to `false` Firebot will respond to users who are not moderators.
+`subscriber`   | *boolean* | If set to `true` Firebot will **not** respond to users who are not subscribers.<br>If set to `false` Firebot will respond to users who are not subscribers.
+`response`     | *string*  | Message Firebot will respond to this command.<br>[Variables](#variables) can be used.
 ####Example
 ```json
 "!firebot" : {
@@ -50,5 +50,5 @@ This variables can be used in any command response and will be replaced by the a
 
 Variable | Value
 -------- | -------
-`$user`  | Username of the user who sent the command
-`$time`  | Current time of the machine where Firebot is running, with format `hh:mm:ss AM/PM`
+`$user`  | Username of the user who sent the command.
+`$time`  | Current time of the machine where Firebot is running, with format `hh:mm:ss AM/PM`.
