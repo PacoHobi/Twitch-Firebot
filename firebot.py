@@ -15,8 +15,8 @@ from time import strftime
 from json import load as json_load
 from thread import start_new_thread
 
-# read preferences file
-def load_pref(f):
+# read config file
+def load_config(f):
 	with open(f) as file:
 		return json_load(file)
 
@@ -95,7 +95,7 @@ def user_message(user, msg):
 		print "[%s][%s] \033[32;1m%s\033[m: %s" %(flags, users[user]['color'], user, msg)
 	else:
 		print "[%s][%s] \033[1m%s\033[m: %s" %(flags, users[user]['color'], user, msg)
-	if preferences['log_chat']:
+	if config['log_chat']:
 		log("[%s] %s: %s\n" %(strftime("%H:%M:%S"), user, msg), logfile)
 
 # user subscription event
@@ -118,18 +118,18 @@ def log(m, f):
 	f.flush()
 
 conn = irc.IRC() # irc object
-preferences = load_pref('preferences') # preferences dictionary
+config = load_config('config') # config dictionary
 users = {} # users dictionary
 
-channel = preferences['channel'] # channel from preferences
-if len(sys.argv) > 1: # if channel specified as an argument we ignore the channel in preferences
+channel = config['channel'] # channel from config
+if len(sys.argv) > 1: # if channel specified as an argument we ignore the channel in config
 	channel = sys.argv[1]
 conn.connect('irc.twitch.tv') # connect to the server
-conn.login(preferences['bot_user'], preferences['bot_password']) # login the bot
+conn.login(config['bot_user'], config['bot_password']) # login the bot
 conn.join('#'+channel) # join the channel
 conn.send("TWITCHCLIENT 3") # to receive user info (usermode, color, emotesets) and twitchnotify (user subscriptions)
 #open file for log chat
-if (preferences['log_chat']):
+if (config['log_chat']):
 	if not os.path.exists('logs'):
 		os.makedirs('logs')
 	logfile = open('logs/'+channel+'-'+strftime("%Y-%m-%d-%H-%M-%S")+'.log', 'w+')
