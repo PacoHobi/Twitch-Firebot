@@ -3,17 +3,21 @@
 ##Overview
 Firebot is a command-line utility that connects to a [Twitch.tv](http://www.twitch.tv) channel chat and outputs the chat messages. Firebot detects users name color, if they are subscribers and if they are Turbo users. Firebot will also anounce new subscribers in real-time.
 
+***
 
 ##Requirements
 To run Firebot you will need:
 + [Python 2.7](https://www.python.org/downloads/)
 
+***
 
 ##Usage
 By default Firebot will connect to the channel specified in the config. If you want to quickly connect to another channel you can specify the channel when launching Firebot.
 ```
 python firebot.py [channel]
 ```
+
+***
 
 ##Config
 Firebot will use the options values in the `config` file if no other values are specified when launching Firebot.
@@ -49,6 +53,7 @@ Option         | Type      | Description
 `restart`      | *string*  | Message Firebot will send when a poll is restarted.
 `stats`        | *string*  | Message Firebot will send when the poll stats are requested.
 
+***
 
 ##Commands
 All commands must have all their options specified to prevents errors.
@@ -64,7 +69,7 @@ Option         | Type      | Description
 `response`     | *string*  | Message Firebot will respond to this command.<br>[Variables](#variables) can be used.
 
 ####Variables
-This variables can be used in any command response and will be replaced by the apropiate value.
+This variables can be used in any response command response and will be replaced by the apropiate value.
 
 Variable | Value
 -------- | -------

@@ -75,23 +75,3 @@ class Poll():
 		if user['user'] not in self.voters and opt in self.options.keys():
 			self.options[opt]['votes'] += 1
 			self.voters.append(user['user'])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
