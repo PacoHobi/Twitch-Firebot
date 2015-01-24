@@ -47,11 +47,22 @@ Option         | Type      | Description
 Option         | Type      | Description
 -------------- | --------- | -----------
 `enabled`      | *boolean* | If set to `true` Firebot will respond to poll commands.<br>If set to `false` Firebot will **not** respond to poll commands.
-`start`        | *string*  | Message Firebot will send when a poll is started.
+`start`        | *string*  | Message Firebot will send when a poll is started.<br>You can use the variable `$options$` to display the poll options.
 `start_error`  | *string*  | Message Firebot will send when trying to start a poll while a poll is already running.
-`end`          | *string*  | Message Firebot will send when a poll is ended.
-`restart`      | *string*  | Message Firebot will send when a poll is restarted.
-`stats`        | *string*  | Message Firebot will send when the poll stats are requested.
+`end`          | *string*  | Message Firebot will send when a poll is ended.<br>You can use the variable `$options$` to display the poll options.
+`restart`      | *string*  | Message Firebot will send when a poll is restarted.<br>You can use the variable `$options$` to display the poll options.
+`stats`        | *string*  | Message Firebot will send when the poll stats are requested.<br>You can use the variable `$options$` to display the poll options.
+
+###Giveaways options
+Option         | Type      | Description
+-------------- | --------- | -----------
+`enabled`      | *boolean* | If set to `true` Firebot will respond to giveaway commands.<br>If set to `false` Firebot will **not** respond to giveaway commands.
+`start`        | *string*  | Message Firebot will send when a giveaway is started.<br>You can use the variable `$keyword$` to display the giveaway keyword.
+`start_error`  | *string*  | Message Firebot will send when trying to start a giveaway while a giveaway is already running.
+`end`          | *string*  | Message Firebot will send when a giveaway is ended.
+`restart`      | *string*  | Message Firebot will send when a giveaway is restarted.<br>You can use the variable `$keyword$` to display the giveaway keyword.
+`stats`        | *string*  | Message Firebot will send when the giveaway stats are requested.<br>You can use the variable `$n$` to display the number of persons in the giveaway.
+`draw`         | *string*  | Message Firebot will send when a giveaway winner is requested.<br>You can use the variable `$winner$` to display the giveaway winner's username.
 
 ***
 
@@ -84,6 +95,7 @@ Variable | Value
 	"response": "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
 }
 ```
+
 ###Poll commands
 Command                                   | Description
 ----------------------------------------- | -----------
@@ -92,3 +104,13 @@ Command                                   | Description
 `!poll restart`                           | Restarts the votes of the current poll.
 `!poll stats`                             | Firebot will respond with the current poll results.
 `!vote [OptionNumber]`                    | Votes for the `[OptionValue]` option of the current poll.
+
+###Giveaway commands
+Command                                   | Description
+----------------------------------------- | -----------
+`!giveaway start [keyword]`               | Starts a giveaway with the keyword `[keyword]`.
+`!giveaway end`                           | Ends the current giveaway.
+`!giveaway restart`                       | Restarts the current giveaway.
+`!giveaway stats`                         | Firebot will respond with the current number of people who have entered the giveaway.
+`!giveaway draw`                          | Firebot will respond with a giveaway winner.
+`!enter [keyword]`                        | Enters the current giveaway if the correct keyword is given.

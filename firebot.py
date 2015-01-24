@@ -10,7 +10,7 @@ __version__ = "1.0"
 __author__ = "Paco Hobi"
 
 
-import irc, sys, os, CommandProcessor, Caps, Poll
+import irc, sys, os, CommandProcessor, Caps, Poll, Giveaway
 from time import strftime
 from json import load as json_load
 from thread import start_new_thread
@@ -107,6 +107,8 @@ def user_message(user, msg):
 	split = msg.split()
 	if split[0].lower() in ['!poll','!vote'] and config['polls']['enabled']:
 		poll.process(users[user], msg)
+	elif split[0].lower() in ['!giveaway','!enter'] and config['giveaways']['enabled']:
+		giveaway.process(users[user], msg)
 	elif msg[0] == '!' and config['commands']:
 		commands.process(users[user], msg)
 	# check caps
@@ -143,6 +145,7 @@ config = load_config(base_dir + '/config') # config dictionary
 commands = CommandProcessor.CommandProcessor(conn, config, base_dir + '/commands')
 caps = Caps.Caps(conn, config)
 poll = Poll.Poll(conn, config)
+giveaway = Giveaway.Giveaway(conn, config)
 users = {} # users dictionary
 
 if len(sys.argv) > 1: # if channel specified as an argument we ignore the channel in config

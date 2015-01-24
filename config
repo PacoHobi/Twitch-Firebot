@@ -21,5 +21,14 @@
 		"end":         "Poll ended. Results: $options$",
 		"restart":     "The poll has been restarted with options $options$. Type '!vote [OptionNumber]' to vote",
 		"stats":       "Poll results: $options$"
+	},
+	"giveaways":{
+		"enabled":     true,
+		"start":       "Giveaway started. To enter the giveaway type '!enter $keyword$'",
+		"start_error": "There is already a giveaway started",
+		"end":         "Giveaway ended",
+		"restart":     "The giveaway has been restarted. To enter the giveaway type '!enter $keyword$'",
+		"stats":       "Currently $n$ persons have entered the giveaway",
+		"draw":        "The winner is $winner$, congratz!"
 	}
 }
