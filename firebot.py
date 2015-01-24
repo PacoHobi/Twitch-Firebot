@@ -23,7 +23,9 @@ def load_config(f):
 # initiliaze user info in the users dictionary
 def init_user(user):
 	if user not in users.keys():
-		users[user] = {'user':user,'follower':False,'subscriber':False,'turbo':False,'mod':False,'color':'default','emoteset':'[]'}
+		users[user] = {'user':user,'follower':False,'subscriber':False,'turbo':False,'mod':False,'owner':False,'color':'default','emoteset':'[]'}
+		if user == config['channel']:
+			users[user]['owner'] = True
 
 # process message from the server
 def process_message(message):
@@ -109,8 +111,10 @@ def user_message(user, msg):
 		poll.process(users[user], msg)
 	elif split[0].lower() in ['!giveaway','!enter'] and config['giveaways']['enabled']:
 		giveaway.process(users[user], msg)
-	elif msg[0] == '!' and config['commands']:
-		commands.process(users[user], msg)
+	elif split[0].lower() in commands.commands['basic'].keys() and config['commands']:
+		commands.process_basic(users[user], msg)
+	elif split[0].lower() in commands.commands['custom'].keys() and config['commands']:
+		commands.process_custom(users[user], msg)
 	# check caps
 	if config['caps']['enabled']:
 		caps.check(users[user], msg)

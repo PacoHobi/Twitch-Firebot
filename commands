@@ -1,19 +1,100 @@
 {
-	"!help" : {
-		"mod": false,
-		"subscriber": false,
-		"response": "Available commands are: !firebot, !time"
+	"basic": {
+		"!timeout": {
+			"enabled":    true,
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"time":       60,
+			"respond":    false,
+			"response":   "Response disabled"
+		},
+
+		"!ban": {
+			"enabled":    true,
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"respond":    true,
+			"response":   "The BANHAMMER has been used on $target$"
+		},
+		
+		"!unban": {
+			"enabled":    true,
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"respond":    true,
+			"response":   "$target$ has been unbanned"
+		},
+		
+		"!title": {
+			"enabled":    true,
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"respond":    true,
+			"response":   "Stream title changed to $channel_title$"
+		},
+		
+		"!game": {
+			"enabled":    true,
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"respond":    true,
+			"response":   "Stream game changed to $channel_game$"
+		},
+		
+		"!ad": {
+			"enabled":    true,
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"respond":    false,
+			"response":   "Response disabled"
+		},
+		
+		"!cancelad": {
+			"enabled":    true,
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"respond":    false,
+			"response":   "Response disabled"
+		},
+		
+		"!silence": {
+			"enabled":      true,
+			"mod":          true,
+			"subscriber":   false,
+			"owner":        false,
+			"respond":      true,
+			"response_on":  "Firebot is now silenced",
+			"response_off": "Firebot is no longer silenced"
+		}
 	},
 
-	"!firebot" : {
-		"mod": false,
-		"subscriber": false,
-		"response": "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
-	},
+	"custom": {
+		"!help": {
+			"mod":        false,
+			"subscriber": false,
+			"owner":      false,
+			"response":   "Available commands are: !firebot, !time"
+		},
 
-	"!time" : {
-		"mod": false,
-		"subscriber": false,
-		"response": "$user the local time is $time"
+		"!firebot": {
+			"mod":        false,
+			"subscriber": false,
+			"owner":      false,
+			"response":   "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
+		},
+
+		"!time": {
+			"mod":        true,
+			"subscriber": false,
+			"owner":      false,
+			"response":   "$user$ the local time is $time$"
+		}
 	}
 }
