@@ -77,30 +77,40 @@ Option         | Type      | Description
 ##Commands
 All commands must have all their options specified to prevents errors.
 
+###Options
+Commands options are defined in the `commands` file in JSON format.
+
+Option         | Type      | Description
+-------------- | --------- | -----------
+`enabled`      | *boolean* | If set to `true` Firebot will process this command.<br>If set to `false` Firebot will **not** process this command.<br>_This option is only used in the basic commands_.
+`mod`          | *boolean* | If set to `true` Firebot will **not** process from users who aren't moderatos.<br>If set to `false` Firebot will process from users who aren't moderators.
+`subscriber`   | *boolean* | If set to `true` Firebot will **not** process from users who aren't subscribers.<br>If set to `false` Firebot will process from users who aren't subscribers.
+`owner`        | *boolean* | If set to `true` Firebot will **not** process from users who aren't the owner of the channel.<br>If set to `false` Firebot will process from the owner of the channel.
+`respond`      | *boolean* | If set to `true` Firebot will respond to this command.<br>If set to `false` Firebot will **not** respond to this command.<br>_This option can't be used in the custom commands_.
+`response`     | *string*  | Message Firebot will respond to this command.<br>[Variables](#variables) can be used.
+
+###Basic commands
+Command                  | Description
+------------------------ | -----------
+`!timeout [user] [time]` | Timeouts `[user]` for `[time]`. If `[time]` isn't set the the time specified in the `commands` file will be used.
+`!ban [user]`            | Bans `[user]`.
+`!unban [user]`          | Unbans `[user]`.
+`!title [ChannelTitle]`  | Changes the stream title to `[ChannelTitle]`.
+`!game [ChannelGame]`    | Changes the stream game to `[ChannelGame]`.
+`!ad`                    | Starts running an ad.
+`!cancelad`              | Cancels a running ad.
+`!silence [on/off]`      | If set to `on` Firebot will be silenced.<br>If set to `off` Firebot will **not** be silenced.
+
 ###Custom commands
 Custom commands are defined in the `commands` file in JSON format.
 
-####Options
-Option         | Type      | Description
--------------- | --------- | -----------
-`mod`          | *boolean* | If set to `true` Firebot will **not** respond to users who are not moderatos.<br>If set to `false` Firebot will respond to users who are not moderators.
-`subscriber`   | *boolean* | If set to `true` Firebot will **not** respond to users who are not subscribers.<br>If set to `false` Firebot will respond to users who are not subscribers.
-`response`     | *string*  | Message Firebot will respond to this command.<br>[Variables](#variables) can be used.
-
-####Variables
-This variables can be used in any custom command response and will be replaced by the apropiate value.
-
-Variable | Value
--------- | -------
-`$user`  | Username of the user who sent the command.
-`$time`  | Current time of the machine where Firebot is running, with format `hh:mm:ss AM/PM`.
-
 ####Example
 ```json
-"!firebot" : {
-	"mod": false,
+"!firebot": {
+	"mod":        false,
 	"subscriber": false,
-	"response": "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
+	"owner":      false,
+	"response":   "To find more about Firebot visit http://github.com/PacoHobi/Twitch-Firebot"
 }
 ```
 
@@ -122,3 +132,12 @@ Command                                   | Description
 `!giveaway stats`                         | Firebot will respond with the current number of people who have entered the giveaway.
 `!giveaway draw`                          | Firebot will respond with a giveaway winner.
 `!enter [keyword]`                        | Enters the current giveaway if the correct keyword is given.
+
+###Variables
+This variables can be used in any custom command response and will be replaced by the apropiate value.
+
+Variable   | Value
+---------- | -----------
+`$user$`   | Username of the user who sent the command.
+`$target$` | Username of the target of certain commands. Can only be used on the `!timeout`, `!ban` and `!unban` commands.
+`$time$`   | Current time of the machine where Firebot is running, with format `hh:mm:ss AM/PM`.
