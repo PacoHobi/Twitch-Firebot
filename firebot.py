@@ -169,4 +169,4 @@ except:
 # manage user input
 while True:
 	s=raw_input()
-	conn.send(s)
+	conn.send_channel(s)

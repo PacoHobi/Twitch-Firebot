@@ -27,5 +27,4 @@ class CommandProcessor():
 	# response command event
 	def response_command(self, user, command):
 		response = utils.format_message(user, command['response'])
-		print "> " + response
 		self.conn.send_channel(response)
