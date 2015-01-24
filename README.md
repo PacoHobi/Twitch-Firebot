@@ -7,14 +7,15 @@ Firebot is a command-line utility that connects to a [Twitch.tv](http://www.twit
 
 ##Features
 + Receive and send chat messages
++ Basic commands
 + Custom commands
 + Giveaways and polls support
 + Caps protection
-+ Fully customizable
++ Fully configurable
 
 ***
 
-##Requirements
+##Dependencies
 To run Firebot you will need [Python 2.7](https://www.python.org/downloads/).
 
 ***
