@@ -152,7 +152,7 @@ if len(sys.argv) > 1: # if channel specified as an argument we ignore the channe
 	config['channel'] = sys.argv[1]
 conn.connect('irc.twitch.tv') # connect to the server
 conn.login(config['bot_user'], config['bot_password']) # login the bot
-conn.join('#'+config['channel']) # join the channel
+conn.join('#'+config['channel'].lower()) # join the channel
 conn.send("TWITCHCLIENT 3") # to receive user info (usermode, color, emotesets) and twitchnotify (user subscriptions)
 #open file for log chat
 if (config['log_chat']):
