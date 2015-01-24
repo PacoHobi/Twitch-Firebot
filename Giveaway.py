@@ -28,7 +28,7 @@ class Giveaway():
 				self.restart_command(user, msg)
 			elif sub == 'stats' and self.started:
 				self.stats_command(user, msg)
-			elif sub == 'draw':
+			elif sub == 'draw' and self.started:
 				self.draw_command(user, msg)
 		elif msg[0] == '!enter' and self.started:
 			self.enter_command(user, msg)
@@ -43,7 +43,6 @@ class Giveaway():
 			return
 		self.started = True
 		self.keyword = msg[2]
-		self.users = []
 		response = self.config['giveaways']['start'].replace('$keyword$', self.keyword)
 		self.conn.send_channel(response)
 
@@ -51,6 +50,7 @@ class Giveaway():
 	def end_command(self, user, msg):
 		self.started = False
 		self.keyword = ''
+		self.users = []
 		self.conn.send_channel(self.config['giveaways']['end'])
 	
 	# process restart command
