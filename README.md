@@ -1,18 +1,26 @@
 #Firebot
 
 ##Overview
-Firebot is a command-line utility that connects to a [Twitch.tv](http://www.twitch.tv) channel chat and outputs the chat messages. Firebot detects users name color, if they are subscribers and if they are Turbo users. Firebot will also anounce new subscribers in real-time.
+Firebot is a command-line utility that connects to a [Twitch.tv](http://www.twitch.tv) channel and acts as an IRC client, receiving chat messages and also being able to send them. But Firebot is much more than a normal IRC client, Firebot has customizable commands, giveaway and poll support, and many more features.
+
+***
+
+##Features
++ Receive and send chat messages
++ Custom commands
++ Giveaways and polls support
++ Caps protection
++ Fully customizable
 
 ***
 
 ##Requirements
-To run Firebot you will need:
-+ [Python 2.7](https://www.python.org/downloads/)
+To run Firebot you will need [Python 2.7](https://www.python.org/downloads/).
 
 ***
 
 ##Usage
-By default Firebot will connect to the channel specified in the config. If you want to quickly connect to another channel you can specify the channel when launching Firebot.
+By default Firebot will connect to the channel specified in the `config` file. If you want to quickly connect to another channel you can specify the channel when launching Firebot.
 ```
 python firebot.py [channel]
 ```
@@ -31,7 +39,7 @@ Option         | Type      | Description
 `commands`     | *boolean* | If set to `true` Firebot will process user commands as specified in the file `commands`.<br>If set to `false` Firebot will **not** process user commands.
 `log_chat`     | *boolean* |If set to `true` Firebot will log all chat messages to a file called `channel-yyyy-mm-dd-hh-mm-ss.log` in the `logs` folder.<br>If set to `false` Firebot will **not** log any messages.
 
-###Caps options
+###Caps protection options
 Option         | Type      | Description
 -------------- | --------- | -----------
 `enabled`      | *boolean* | If set to `true` Firebot will monitor the chat for excessive caps.<br>If set to `false` Firebot will **not** monitor the chat for excessive caps.
@@ -69,8 +77,8 @@ Option         | Type      | Description
 ##Commands
 All commands must have all their options specified to prevents errors.
 
-###Response commands
-Response commands are defined in the `commands` file in JSON format.
+###Custom commands
+Custom commands are defined in the `commands` file in JSON format.
 
 ####Options
 Option         | Type      | Description
@@ -80,7 +88,7 @@ Option         | Type      | Description
 `response`     | *string*  | Message Firebot will respond to this command.<br>[Variables](#variables) can be used.
 
 ####Variables
-This variables can be used in any response command response and will be replaced by the apropiate value.
+This variables can be used in any custom command response and will be replaced by the apropiate value.
 
 Variable | Value
 -------- | -------
