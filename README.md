@@ -95,10 +95,6 @@ Command                  | Description
 `!timeout [user] [time]` | Timeouts `[user]` for `[time]`. If `[time]` isn't set the the time specified in the `commands` file will be used.
 `!ban [user]`            | Bans `[user]`.
 `!unban [user]`          | Unbans `[user]`.
-`!title [ChannelTitle]`  | Changes the stream title to `[ChannelTitle]`.
-`!game [ChannelGame]`    | Changes the stream game to `[ChannelGame]`.
-`!ad`                    | Starts running an ad.
-`!cancelad`              | Cancels a running ad.
 `!silence [on/off]`      | If set to `on` Firebot will be silenced.<br>If set to `off` Firebot will **not** be silenced.
 
 ###Custom commands

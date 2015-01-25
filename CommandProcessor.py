@@ -43,14 +43,14 @@ class CommandProcessor():
 			self.ban_command(user, msg)
 		elif cmd == '!unban':
 			self.unban_command(user, msg)
-		elif cmd == '!title':
-			self.title_command(user, msg)
-		elif cmd == '!game':
-			self.game_command(user, msg)
-		elif cmd == '!ad':
-			self.ad_command(user, msg)
-		elif cmd == '!cancelad':
-			self.cancelad_command(user, msg)
+		# elif cmd == '!title':
+		# 	self.title_command(user, msg)
+		# elif cmd == '!game':
+		# 	self.game_command(user, msg)
+		# elif cmd == '!ad':
+		# 	self.ad_command(user, msg)
+		# elif cmd == '!cancelad':
+		# 	self.cancelad_command(user, msg)
 		elif cmd == '!silence':
 			self.silence_command(user, msg)
 
@@ -127,30 +127,3 @@ class CommandProcessor():
 				if self.commands['basic']['!silence']['respond']:
 					message = utils.format_message(user, self.commands['basic']['!silence']['response_off'])
 					self.conn.send_channel(message)
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
