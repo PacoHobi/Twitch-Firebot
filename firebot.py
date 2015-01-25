@@ -10,7 +10,7 @@ __version__ = "1.0"
 __author__ = "Paco Hobi"
 
 
-import irc, sys, os, CommandProcessor, Caps, Poll, Giveaway
+import irc, sys, os, CommandProcessor, Caps, Poll, Giveaway, TwitchAPI
 from time import strftime
 from json import load as json_load
 from thread import start_new_thread
@@ -54,15 +54,13 @@ def process_message(message):
 			add_mod(msg[2])
 		elif msg[1] == '-o':
 			remove_mod(msg[2])
-	else:
-		if split[1] == 'NOTICE' and split[2][:19] == '* :Error logging in':
-			print "\033[31mError loggin in\033[m"
-			exit()
-		# print "\033[31m%s\033[m" %(message)
+	elif command == 'NOTICE' and msg in ['Error logging in', 'Login unsuccessful']:
+		echo('Error logging in, check that the bot_user option is correct. If error persist get a new OAuth token', c=1, b=1)
+		exit()
 
 # system message event
-def system_message(msg):
-	msg = msg.split()
+def system_message(message):
+	msg = message.split()
 	cmd = msg[0]
 	if len(msg) > 1:
 		user = msg[1]
@@ -81,7 +79,7 @@ def system_message(msg):
 	elif cmd == 'CLEARCHAT':
 		pass
 	else:
-		print "\033[31m%s\033[m" %(' '.join(msg))
+		print "\033[31m%s\033[m" %(message)
 
 # user message event
 def user_message(user, msg):
@@ -121,7 +119,7 @@ def user_message(user, msg):
 
 # user subscription event
 def user_subscribed(user, months):
-	print "\033[33;1mNew subscriber: %s [%s]\033[m" %(user, months)
+	print '\033[33;1mNew subscriber: %s [%s]\033[m' %(user, months)
 
 # add mod event
 def add_mod(user):
@@ -132,6 +130,20 @@ def add_mod(user):
 def remove_mod(user):
 	init_user(user)
 	users[user]['mod'] = False
+
+# print to console
+def echo(message, c=4, b=False, i=False, u=False):
+	opts = []
+	if c is not False and c in range(8):
+		opts.append(str(30 + c))
+	if b is not False:
+		opts.append('1')
+	if i is not False:
+		opts.append('3')
+	if u is not False:
+		opts.append('4')
+	print '\033[%sm%s\033[m' %(';'.join(opts), message)
+
 
 # log message to file
 def log(m, f):
@@ -145,6 +157,7 @@ def exit():
 
 base_dir = os.path.dirname(os.path.realpath(__file__)) # directory of the script
 conn = irc.IRC() # irc object
+echo('Loading config ...')
 config = load_config(base_dir + '/config') # config dictionary
 commands = CommandProcessor.CommandProcessor(conn, config, base_dir + '/commands')
 caps = Caps.Caps(conn, config)
@@ -156,10 +169,18 @@ if len(sys.argv) > 1: # if channel specified as an argument we ignore the channe
 	config['channel'] = sys.argv[1].lower()
 else:
 	config['channel'] = config['channel'].lower()
-conn.connect('irc.twitch.tv') # connect to the server
+echo('Connecting to Twitch IRC server ...')
+try:
+	conn.connect('irc.twitch.tv') # connect to the server
+except:
+	echo('Error connecting to the server', c=1, b=1)
+	exit()
+echo('Logging in as %s...' %config['bot_user'])
 conn.login(config['bot_user'], config['bot_password']) # login the bot
+echo('Joining channel %s...' %config['channel'])
 conn.join('#'+config['channel']) # join the channel
-conn.send("TWITCHCLIENT 3") # to receive user info (usermode, color, emotesets) and twitchnotify (user subscriptions)
+conn.send('TWITCHCLIENT 3') # to receive user info (usermode, color, emotesets) and twitchnotify (user subscriptions)
+echo('Firebot is up and ready!', b=1)
 #open file for log chat
 if (config['log_chat']):
 	if not os.path.exists(base_dir + '/logs'):
@@ -168,11 +189,12 @@ if (config['log_chat']):
 try:
 	start_new_thread(conn.receive, (process_message,)) # listen for messages from the server
 except:
-	print "Error: unable to start thread"
+	echo('Error: unable to start thread', c=1, b=1)
 	exit()
 
 
 # manage user input
 while True:
 	s=raw_input()
-	conn.send_channel(s)
+	# conn.send_channel(s)
+	twitch.request(twitch.links['channel'])
