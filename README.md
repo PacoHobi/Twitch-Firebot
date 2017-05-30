@@ -1,11 +1,11 @@
-#Firebot
+# Firebot
 
-##Overview
+## Overview
 Firebot is a command-line utility that connects to a [Twitch.tv](http://www.twitch.tv) channel and acts as an IRC client, receiving chat messages and also being able to send them. But Firebot is much more than a normal IRC client, Firebot has customizable commands, giveaway and poll support, and many more features.
 
 ***
 
-##Features
+## Features
 + Receive and send chat messages
 + Basic commands
 + Custom commands
@@ -15,12 +15,12 @@ Firebot is a command-line utility that connects to a [Twitch.tv](http://www.twit
 
 ***
 
-##Dependencies
+## Dependencies
 To run Firebot you will need [Python 2.7](https://www.python.org/downloads/).
 
 ***
 
-##Usage
+## Usage
 By default Firebot will connect to the channel specified in the `config` file. If you want to quickly connect to another channel you can specify the channel when launching Firebot.
 ```
 python firebot.py [channel]
@@ -28,10 +28,10 @@ python firebot.py [channel]
 
 ***
 
-##Config
+## Config
 Firebot will use the options values in the `config` file if no other values are specified when launching Firebot.
 
-###General options
+### General options
 Option         | Type      | Description
 -------------- | --------- | -----------
 `bot_user`     | *string*  | Username of the account with which Firebot will connect to the channel.
@@ -40,7 +40,7 @@ Option         | Type      | Description
 `commands`     | *boolean* | If set to `true` Firebot will process user commands as specified in the file `commands`.<br>If set to `false` Firebot will **not** process user commands.
 `log_chat`     | *boolean* |If set to `true` Firebot will log all chat messages to a file called `channel-yyyy-mm-dd-hh-mm-ss.log` in the `logs` folder.<br>If set to `false` Firebot will **not** log any messages.
 
-###Caps protection options
+### Caps protection options
 Option         | Type      | Description
 -------------- | --------- | -----------
 `enabled`      | *boolean* | If set to `true` Firebot will monitor the chat for excessive caps.<br>If set to `false` Firebot will **not** monitor the chat for excessive caps.
@@ -52,7 +52,7 @@ Option         | Type      | Description
 `timeout`      | *boolean* | If set to `true` Firebot will timeout users who use excessive caps.<br>If set to `false` Firebot will **not** timeout users who use excessive caps.
 `timeout_time` | *integer* | Duration of the timeout in seconds.
 
-###Polls options
+### Polls options
 Option         | Type      | Description
 -------------- | --------- | -----------
 `enabled`      | *boolean* | If set to `true` Firebot will respond to poll commands.<br>If set to `false` Firebot will **not** respond to poll commands.
@@ -62,7 +62,7 @@ Option         | Type      | Description
 `restart`      | *string*  | Message Firebot will send when a poll is restarted.<br>You can use the variable `$options$` to display the poll options.
 `stats`        | *string*  | Message Firebot will send when the poll stats are requested.<br>You can use the variable `$options$` to display the poll options.
 
-###Giveaways options
+### Giveaways options
 Option         | Type      | Description
 -------------- | --------- | -----------
 `enabled`      | *boolean* | If set to `true` Firebot will respond to giveaway commands.<br>If set to `false` Firebot will **not** respond to giveaway commands.
@@ -75,10 +75,10 @@ Option         | Type      | Description
 
 ***
 
-##Commands
+## Commands
 All commands must have all their options specified to prevents errors.
 
-###Options
+### Options
 Commands options are defined in the `commands` file in JSON format.
 
 Option         | Type      | Description
@@ -90,7 +90,7 @@ Option         | Type      | Description
 `respond`      | *boolean* | If set to `true` Firebot will respond to this command.<br>If set to `false` Firebot will **not** respond to this command.<br>_This option can't be used in the custom commands_.
 `response`     | *string*  | Message Firebot will respond to this command.<br>[Variables](#variables) can be used.
 
-###Basic commands
+### Basic commands
 Command                  | Description
 ------------------------ | -----------
 `!timeout [user] [time]` | Timeouts `[user]` for `[time]`. If `[time]` isn't set the the time specified in the `commands` file will be used.
@@ -98,10 +98,10 @@ Command                  | Description
 `!unban [user]`          | Unbans `[user]`.
 `!silence [on/off]`      | If set to `on` Firebot will be silenced.<br>If set to `off` Firebot will **not** be silenced.
 
-###Custom commands
+### Custom commands
 Custom commands are defined in the `commands` file in JSON format.
 
-####Example
+#### Example
 ```json
 "!firebot": {
 	"mod":        false,
@@ -111,7 +111,7 @@ Custom commands are defined in the `commands` file in JSON format.
 }
 ```
 
-###Poll commands
+### Poll commands
 Command                                   | Description
 ----------------------------------------- | -----------
 `!poll start option1 | option2 | option3` | Starts a poll with options option1, option2, option3. More (or less) options can de declared.
@@ -120,7 +120,7 @@ Command                                   | Description
 `!poll stats`                             | Firebot will respond with the current poll results.
 `!vote [OptionNumber]`                    | Votes for the `[OptionValue]` option of the current poll.
 
-###Giveaway commands
+### Giveaway commands
 Command                                   | Description
 ----------------------------------------- | -----------
 `!giveaway start [keyword]`               | Starts a giveaway with the keyword `[keyword]`.
@@ -130,7 +130,7 @@ Command                                   | Description
 `!giveaway draw`                          | Firebot will respond with a giveaway winner.
 `!enter [keyword]`                        | Enters the current giveaway if the correct keyword is given.
 
-###Variables
+### Variables
 This variables can be used in any custom command response and will be replaced by the apropiate value.
 
 Variable   | Value
